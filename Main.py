@@ -17,11 +17,15 @@ cmbStyle.theme_use('cmbs')
 
 #Frames para ordenar los componentes
 frameEntries = tkinter.Frame(master,bg="#212121")
-frameEntries.grid(row=0, column=0)
+frameEntries.grid(row=2, column=1)
 frGrafica = tkinter.Frame(master,bg="#212121")
-frGrafica.grid(row=0, column=1, rowspan=5)
+frGrafica.grid(row=0, column=0, rowspan=5)
 frame = tkinter.Frame(master,bg="#212121")
-frame.grid(row=2, column=0)
+frame.grid(row=3, column=1)
+#--
+
+#Variables
+metodos=["Seleccione un metodo", "Biseccion", "Falsa Posicion", "Punto Fijo", "Newton Raphson", "Secante", "Tartaglia", "Ferrari", "Horner", "Müller", "Bairstow"]
 #--
 
 #Componentes de la app
@@ -30,7 +34,7 @@ fn = tkinter.Entry(frameEntries, exportselection=0, bg = "#2d000d", fg = "#FFFFF
 fn.grid(row=1, column=0)
 
 tkinter.Label(frameEntries, text="Metodos", bg="#212121",fg="#ff064f").grid(row=3, column=0)
-cmbMetodos = ttk.Combobox(frameEntries, values=["Elija un metodo","Tartaglia"], state="readonly")
+cmbMetodos = ttk.Combobox(frameEntries, values=metodos, state="readonly")
 cmbMetodos.grid(row=4, column=0)
 cmbMetodos.current(0)
 
@@ -54,6 +58,7 @@ seis = tkinter.Button(frame, bg="#b606ff", fg="#FFFFFF", text="6", activebackgro
 siete = tkinter.Button(frame, bg="#b606ff", fg="#FFFFFF", text="7", activebackground="#E040FB")
 ocho = tkinter.Button(frame, bg="#b606ff", fg="#FFFFFF", text="8", activebackground="#E040FB")
 nueve = tkinter.Button(frame, bg="#b606ff", fg="#FFFFFF", text="9", activebackground="#E040FB")
+#--
 
 #Posicionamiento de los botones numericos
 uno.grid(row=7, column=0)
@@ -66,7 +71,6 @@ siete.grid(row=9, column=0)
 ocho.grid(row=9, column=1)
 nueve.grid(row=9, column=2)
 zero.grid(row=10, column=1)
-#--
 #--
 #--
 master.mainloop()
