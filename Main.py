@@ -34,7 +34,7 @@ func = tkinter.StringVar()
 
 #Componentes de la app
 tkinter.Label(frameEntries, text="Ingrese la funcion a evaluar", bg="#212121",fg="#ff064f").grid(row=0, column=0)
-fn = tkinter.Entry(frameEntries, exportselection=0, textvariable=func, bg = "#673AB7", fg = "#FFFFFF")
+fn = tkinter.Entry(frameEntries, exportselection=0, textvariable=func, bg = "#673AB7", fg = "#FFFFFF", width=60)
 fn.grid(row=1, column=0)
 fn.focus()
 tkinter.Label(frameEntries, text="Metodos", bg="#212121",fg="#ff064f").grid(row=3, column=0)
@@ -50,10 +50,10 @@ tkinter.Entry(frameEntries, exportselection=0, bg = "#2d000d", fg = "#FFFFFF", s
 tkinter.Label(frGrafica, text="Grafica de la funcion", bg="#212121",fg="#ff064f").grid(row=0, column=2, columnspan=3)
 tkinter.Canvas(frGrafica, height=500, width=500, bg="#512DA8").grid(row=1,column=2, rowspan=6, columnspan=3)
 #--
-
+#Escribe en el Entry llamado fn
 def escribir(text):
     func.set(func.get()+text.cget("text"))
-
+#--
 #Creacion de botones numericos
 zero = tkinter.Button(frame, bg="#b606ff", fg="#FFFFFF", text="0", activebackground="#673AB7", command=lambda:escribir(zero))
 uno = tkinter.Button(frame, bg="#b606ff", fg="#FFFFFF", text="1", activebackground="#673AB7", command=lambda:escribir(uno))
