@@ -17,11 +17,13 @@ cmbStyle.theme_use('cmbs')
 
 #Frames para ordenar los componentes
 frameEntries = tkinter.Frame(master,bg="#212121")
-frameEntries.grid(row=2, column=1)
+frameEntries.grid(row=0, column=1, columnspan=2)
 frGrafica = tkinter.Frame(master,bg="#212121")
 frGrafica.grid(row=0, column=0, rowspan=5)
 frame = tkinter.Frame(master,bg="#212121")
-frame.grid(row=3, column=1)
+frame.grid(row=1, column=1)
+frameFn = tkinter.Frame(master,bg="#212121")
+frameFn.grid(row=1, column=2)
 #--
 
 #Variables
@@ -60,17 +62,33 @@ ocho = tkinter.Button(frame, bg="#b606ff", fg="#FFFFFF", text="8", activebackgro
 nueve = tkinter.Button(frame, bg="#b606ff", fg="#FFFFFF", text="9", activebackground="#E040FB")
 #--
 
+#Creacion de botones de funciones
+sen = tkinter.Button(frameFn, bg="#b606ff", fg="#FFFFFF", text="Sen(x)", activebackground="#E040FB", width=6)
+cos = tkinter.Button(frameFn, bg="#b606ff", fg="#FFFFFF", text="Cos(x)", activebackground="#E040FB", width=6)
+tan = tkinter.Button(frameFn, bg="#b606ff", fg="#FFFFFF", text="Tan(x)", activebackground="#E040FB", width=6)
+e = tkinter.Button(frameFn, bg="#b606ff", fg="#FFFFFF", text="e^(x)", activebackground="#E040FB", width=6)
+ln = tkinter.Button(frameFn, bg="#b606ff", fg="#FFFFFF", text="Ln(x)", activebackground="#E040FB", width=6)
+log = tkinter.Button(frameFn, bg="#b606ff", fg="#FFFFFF", text="Log(x)", activebackground="#E040FB", width=6)
+#--
 #Posicionamiento de los botones numericos
-uno.grid(row=7, column=0)
-dos.grid(row=7, column=1)
-tres.grid(row=7, column=2)
-cuatro.grid(row=8, column=0)
-cinco.grid(row=8, column=1)
-seis.grid(row=8, column=2)
-siete.grid(row=9, column=0)
-ocho.grid(row=9, column=1)
-nueve.grid(row=9, column=2)
-zero.grid(row=10, column=1)
+uno.grid(row=0, column=0)
+dos.grid(row=0, column=1)
+tres.grid(row=0, column=2)
+cuatro.grid(row=1, column=0)
+cinco.grid(row=1, column=1)
+seis.grid(row=1, column=2)
+siete.grid(row=2, column=0)
+ocho.grid(row=2, column=1)
+nueve.grid(row=2, column=2)
+zero.grid(row=3, column=1)
+#--
+#Posicionamiento de los botones de funciones
+sen.grid(row=0, column=0)
+cos.grid(row=0, column=1)
+tan.grid(row=0, column=2)
+e.grid(row=1, column=0)
+ln.grid(row=1, column=1)
+log.grid(row=1, column=2)
 #--
 #--
 master.mainloop()
