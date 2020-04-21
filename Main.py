@@ -28,11 +28,12 @@ frameFn.grid(row=1, column=2)
 
 #Variables
 metodos=["Seleccione un metodo", "Biseccion", "Falsa Posicion", "Punto Fijo", "Newton Raphson", "Secante", "Tartaglia", "Ferrari", "Horner", "Müller", "Bairstow"]
+func = tkinter.StringVar()
 #--
 
 #Componentes de la app
 tkinter.Label(frameEntries, text="Ingrese la funcion a evaluar", bg="#212121",fg="#ff064f").grid(row=0, column=0)
-fn = tkinter.Entry(frameEntries, exportselection=0, bg = "#2d000d", fg = "#FFFFFF")
+fn = tkinter.Entry(frameEntries, exportselection=0, textvariable=func, bg = "#2d000d", fg = "#FFFFFF")
 fn.grid(row=1, column=0)
 
 tkinter.Label(frameEntries, text="Metodos", bg="#212121",fg="#ff064f").grid(row=3, column=0)
@@ -49,26 +50,29 @@ tkinter.Label(frGrafica, text="Grafica de la funcion", bg="#212121",fg="#ff064f"
 tkinter.Canvas(frGrafica, height=500, width=500, bg="#68001f").grid(row=1,column=2, rowspan=6, columnspan=3)
 #--
 
+def escribir(text):
+    func.set(func.get()+text.cget("text"))
+
 #Creacion de botones numericos
-zero = tkinter.Button(frame, bg="#b606ff", fg="#FFFFFF", text="0", activebackground="#E040FB")
-uno = tkinter.Button(frame, bg="#b606ff", fg="#FFFFFF", text="1", activebackground="#E040FB")
-dos = tkinter.Button(frame, bg="#b606ff", fg="#FFFFFF", text="2", activebackground="#E040FB")
-tres = tkinter.Button(frame, bg="#b606ff", fg="#FFFFFF", text="3", activebackground="#E040FB")
-cuatro = tkinter.Button(frame, bg="#b606ff", fg="#FFFFFF", text="4", activebackground="#E040FB")
-cinco = tkinter.Button(frame, bg="#b606ff", fg="#FFFFFF", text="5", activebackground="#E040FB")
-seis = tkinter.Button(frame, bg="#b606ff", fg="#FFFFFF", text="6", activebackground="#E040FB")
-siete = tkinter.Button(frame, bg="#b606ff", fg="#FFFFFF", text="7", activebackground="#E040FB")
-ocho = tkinter.Button(frame, bg="#b606ff", fg="#FFFFFF", text="8", activebackground="#E040FB")
-nueve = tkinter.Button(frame, bg="#b606ff", fg="#FFFFFF", text="9", activebackground="#E040FB")
+zero = tkinter.Button(frame, bg="#b606ff", fg="#FFFFFF", text="0", activebackground="#E040FB", command=lambda:escribir(zero))
+uno = tkinter.Button(frame, bg="#b606ff", fg="#FFFFFF", text="1", activebackground="#E040FB", command=lambda:escribir(uno))
+dos = tkinter.Button(frame, bg="#b606ff", fg="#FFFFFF", text="2", activebackground="#E040FB", command=lambda:escribir(dos))
+tres = tkinter.Button(frame, bg="#b606ff", fg="#FFFFFF", text="3", activebackground="#E040FB", command=lambda:escribir(tres))
+cuatro = tkinter.Button(frame, bg="#b606ff", fg="#FFFFFF", text="4", activebackground="#E040FB", command=lambda:escribir(cuatro))
+cinco = tkinter.Button(frame, bg="#b606ff", fg="#FFFFFF", text="5", activebackground="#E040FB", command=lambda:escribir(cinco))
+seis = tkinter.Button(frame, bg="#b606ff", fg="#FFFFFF", text="6", activebackground="#E040FB", command=lambda:escribir(seis))
+siete = tkinter.Button(frame, bg="#b606ff", fg="#FFFFFF", text="7", activebackground="#E040FB", command=lambda:escribir(siete))
+ocho = tkinter.Button(frame, bg="#b606ff", fg="#FFFFFF", text="8", activebackground="#E040FB", command=lambda:escribir(ocho))
+nueve = tkinter.Button(frame, bg="#b606ff", fg="#FFFFFF", text="9", activebackground="#E040FB", command=lambda:escribir(nueve))
 #--
 
 #Creacion de botones de funciones
-sen = tkinter.Button(frameFn, bg="#b606ff", fg="#FFFFFF", text="Sen(x)", activebackground="#E040FB", width=6)
-cos = tkinter.Button(frameFn, bg="#b606ff", fg="#FFFFFF", text="Cos(x)", activebackground="#E040FB", width=6)
-tan = tkinter.Button(frameFn, bg="#b606ff", fg="#FFFFFF", text="Tan(x)", activebackground="#E040FB", width=6)
-e = tkinter.Button(frameFn, bg="#b606ff", fg="#FFFFFF", text="e^(x)", activebackground="#E040FB", width=6)
-ln = tkinter.Button(frameFn, bg="#b606ff", fg="#FFFFFF", text="Ln(x)", activebackground="#E040FB", width=6)
-log = tkinter.Button(frameFn, bg="#b606ff", fg="#FFFFFF", text="Log(x)", activebackground="#E040FB", width=6)
+sen = tkinter.Button(frameFn, bg="#b606ff", fg="#FFFFFF", text="Sen(x)", activebackground="#E040FB", width=6, command=lambda:escribir(sen))
+cos = tkinter.Button(frameFn, bg="#b606ff", fg="#FFFFFF", text="Cos(x)", activebackground="#E040FB", width=6, command=lambda:escribir(cos))
+tan = tkinter.Button(frameFn, bg="#b606ff", fg="#FFFFFF", text="Tan(x)", activebackground="#E040FB", width=6, command=lambda:escribir(tan))
+e = tkinter.Button(frameFn, bg="#b606ff", fg="#FFFFFF", text="e^(x)", activebackground="#E040FB", width=6, command=lambda:escribir(e))
+ln = tkinter.Button(frameFn, bg="#b606ff", fg="#FFFFFF", text="Ln(x)", activebackground="#E040FB", width=6, command=lambda:escribir(ln))
+log = tkinter.Button(frameFn, bg="#b606ff", fg="#FFFFFF", text="Log(x)", activebackground="#E040FB", width=6, command=lambda:escribir(log))
 #--
 #Posicionamiento de los botones numericos
 uno.grid(row=0, column=0)
@@ -90,5 +94,6 @@ e.grid(row=1, column=0)
 ln.grid(row=1, column=1)
 log.grid(row=1, column=2)
 #--
+
 #--
 master.mainloop()
