@@ -20,7 +20,5 @@ def biseccion(x1,x2,Es,funcion):
             x2 = xr
         else:
             x1= xr
-
-
     return xr
 
