@@ -38,7 +38,6 @@ metodos=["Seleccione un metodo", "Biseccion", "Falsa Posicion", "Punto Fijo", "N
 func = tkinter.StringVar()
 fig = Figure(figsize=(5,4), dpi=100)
 x = symbols('x')
-cadena = 0*x
 #--
 
 #Metodo para obtener los coeficientes de la funcion pasada como String
@@ -69,10 +68,21 @@ def coefs(entrada):
 #Crea una f(x) a partir de los coeficientes obtenidos del string
 def obtener(text):
     coeficient = coefs(text)
-    cadena = 0*x
+    #t -> rango entre el cual estaran los valores de la grafica
+    t = np.arange(-5,5, 0.1)
+    fig.clear()
+    cadena = 0*t
     for i in range(len(coeficient)):
-      cadena = cadena + (coeficient[i]*x**i)
-    print(cadena)
+      cadena = cadena + (coeficient[i]*t**i)
+    
+    #Aqui se inserta la funcion a graficar
+    fig.add_subplot(111).plot(t, cadena)
+    #Aqui se crea el area para graficar
+    tkinter.Label(frGrafica, text="Grafica de la funcion", bg="#212121",fg="#ff064f").grid(row=0, column=2, columnspan=3)
+    canvas = FigureCanvasTkAgg(fig, frGrafica)
+    canvas.draw()
+    canvas.get_tk_widget().grid(row = 6, column = 0, columnspan = 6)
+#--
 #--
 #Componentes de la app
 tkinter.Label(frameEntries, text="Ingrese la funcion a evaluar", bg="#212121",fg="#ff064f").grid(row=0, column=0)
@@ -89,18 +99,13 @@ cmbMetodos.current(0)
 tkinter.Label(frameEntries, text="Soluciones", bg="#212121",fg="#ff064f").grid(row=5, column=0)
 tkinter.Entry(frameEntries, exportselection=0, bg = "#2d000d", fg = "#FFFFFF", state="readonly").grid(row=6, column=0)
 
-print(cadena)
+
 #Area de grafico
-#t -> rango entre el cual estaran los valores de la grafica
-t = np.arange(-5,3, 0.1)
-#Aqui se inserta la funcion a graficar
-fig.add_subplot(111).plot(t, 2*t**2)
 #Aqui se crea el area para graficar
 tkinter.Label(frGrafica, text="Grafica de la funcion", bg="#212121",fg="#ff064f").grid(row=0, column=2, columnspan=3)
 canvas = FigureCanvasTkAgg(fig, frGrafica)
-canvas.draw()
-canvas.get_tk_widget().grid(row = 1, column = 0, columnspan = 6)
-#--
+canvas.get_tk_widget().grid(row = 6, column = 0, columnspan = 6)
+
 #Escribe en el Entry llamado fn
 def escribir(text):
     func.set(func.get()+text.cget("text"))
