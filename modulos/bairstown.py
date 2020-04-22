@@ -1,6 +1,6 @@
 import math
 
-
+#Funcion para la doble division sintetica
 def dobledivi(r0,s0,coef):
     x=[]
     x.append(coef[0])
@@ -10,7 +10,7 @@ def dobledivi(r0,s0,coef):
         elif i>1:
             x.append((coef[i])+(x[i-1]*r0)+(x[i-2]*s0))
     return x
-
+#Funcion para la division sintetica simple
 def simpleDivi(raiz,coef):
     
     x=[coef[0]]
@@ -19,7 +19,15 @@ def simpleDivi(raiz,coef):
             x.append((coef[i])+(x[i-1]*raiz))
     return x
 
+#coef es una lista de coeficientes
 def bairstown(r0,s0,Es,coef):
+    """
+     Devuelve una lista con las posibles raiz de la ecuacio.
+     Parametros:
+     r0 -- Es el valor inicial de r0
+     s0 -- Es el valor inicial de S0
+     coef -- es la lista de los coeficientes de la ecuacion
+    """
 
     while len(coef)>3:
         Ear=0
@@ -90,6 +98,7 @@ c=[1,-7,13,23,-78]
 
 #print bairstown(-1,-1,0.05,c)
 x=bairstown(1.5,1.5,0.05,c)
+ba
 for letra in x:
     print letra
 
