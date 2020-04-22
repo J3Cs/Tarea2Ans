@@ -154,4 +154,4 @@ def coefs(entrada):
 Horner("x^3+7x^2+7x-15", 0.05, 0.9375, 2, 0.95)
 
 for l in coefs("x^3+7x"):
-  print l
+  print (l)
