@@ -4,18 +4,18 @@ import math
 def dobledivi(r0,s0,coef):
     x=[]
     x.append(coef[0])
-    for i in range(0,len(coef)):
+    for i in range(1,len(coef)):
         if i==1:
             x.append((coef[i])+(x[i-1]*r0))
-        elif i>1:
+        else:
             x.append((coef[i])+(x[i-1]*r0)+(x[i-2]*s0))
     return x
 #Funcion para la division sintetica simple
 def simpleDivi(raiz,coef):
     
     x=[coef[0]]
-    for i in range(0,len(coef)):
-        if i>=1:
+    for i in range(1,len(coef)):
+        
             x.append((coef[i])+(x[i-1]*raiz))
     return x
 
