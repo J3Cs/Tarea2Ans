@@ -1,24 +1,26 @@
 import math
-
-print ("\nMetodo de la Biseccion")
-
 #Funcion del Ejercicio
-def f(x):
-    return (1.5)-math.log(1+x**2)
+def f(x,funcion):
+    return eval(funcion.replace("x",str(x)))
+#Recibe dos valores iniciales y la cadena de la funcio
+def biseccion(x1,x2,Es,funcion):
+    """
+    Parametros:
+     x1 -- primer valor inicial
+     x2 -- Segundo valor
+     Es -- error especifico
+     funcion -- la cadena de la funcion
+    """
+    
+    Ea = 1
+    while(abs(Ea) > Es):
+        xr = (x1 + x2) / 2
+        Ea = (xr-x1)/xr
+        if(f(x1,funcion) * f(xr,funcion) < 0):
+            x2 = xr
+        else:
+            x1= xr
 
-rango_inicio = 1
-rango_final = 2
-cs=3
-es=0.5*(10**(2-cs))
-Ea=1
-print("\nX: \t\t\tError Aprox: ")
 
-while(abs(Ea) > es):
-    Xr = (rango_inicio + rango_final) / 2
-    Ea = (Xr-rango_inicio)/Xr
-    print(Xr,"\t\t",Ea)
-    if(f(rango_inicio) * f(Xr) < 0):
-        rango_final = Xr
-    else:
-        rango_inicio = Xr
-print ("\nLa Raiz es: ", Xr,"\nErro Aprox: ",Ea,"\n")
+    return xr
+
