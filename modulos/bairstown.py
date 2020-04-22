@@ -91,6 +91,6 @@ c=[1,-7,13,23,-78]
 #print bairstown(-1,-1,0.05,c)
 x=bairstown(1.5,1.5,0.05,c)
 for letra in x:
-    print letra
+    print(letra)
 
 

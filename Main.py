@@ -1,6 +1,12 @@
 # -*- coding: utf-8 -*-
 import tkinter
 from tkinter import ttk
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
+from matplotlib.figure import Figure
+import matplotlib.pyplot as plt
+import numpy as np
+from sympy import *
+import re
 
 # create main window
 master = tkinter.Tk()
@@ -30,13 +36,51 @@ frameFn.grid(row=1, column=2)
 #Variables
 metodos=["Seleccione un metodo", "Biseccion", "Falsa Posicion", "Punto Fijo", "Newton Raphson", "Secante", "Tartaglia", "Ferrari", "Horner", "Müller", "Bairstow"]
 func = tkinter.StringVar()
+fig = Figure(figsize=(5,4), dpi=100)
+x = symbols('x')
+cadena = 0*x
 #--
 
+#Metodo para obtener los coeficientes de la funcion pasada como String
+def coefs(entrada):
+  regexp = r"(-?\d*)(x?)(?:(?:\^|\*\*)(\d))?"
+  c = {}
+  for coef, x, exp in re.findall(regexp, entrada):
+    # print(coef, x, exp)
+    if not coef and not x:
+      continue
+    if x and not coef:
+      coef = '1'
+    if x and coef == "-":
+      coef = "-1"
+    if x and not exp:
+      exp = '1'
+    if coef and not x:
+      exp = '0'
+    exp = ord(exp) & 0x000F
+    c[exp] = float(coef)
+  grado = max(c)
+  coeficientes = [0.0] * (grado+1)
+  for g, v in c.items():
+    coeficientes[g] = v
+  return coeficientes
+#--
+
+#Crea una f(x) a partir de los coeficientes obtenidos del string
+def obtener(text):
+    coeficient = coefs(text)
+    cadena = 0*x
+    for i in range(len(coeficient)):
+      cadena = cadena + (coeficient[i]*x**i)
+    print(cadena)
+#--
 #Componentes de la app
 tkinter.Label(frameEntries, text="Ingrese la funcion a evaluar", bg="#212121",fg="#ff064f").grid(row=0, column=0)
 fn = tkinter.Entry(frameEntries, exportselection=0, textvariable=func, bg = "#673AB7", fg = "#FFFFFF", width=60)
 fn.grid(row=1, column=0)
 fn.focus()
+tkinter.Button(frameEntries, bg="#b606ff", fg="#FFFFFF", text="Graficar", activebackground="#673AB7", command=lambda:obtener(func.get())).grid(row=2, column=0)
+
 tkinter.Label(frameEntries, text="Metodos", bg="#212121",fg="#ff064f").grid(row=3, column=0)
 cmbMetodos = ttk.Combobox(frameEntries, values=metodos, state="readonly")
 cmbMetodos.grid(row=4, column=0)
@@ -45,14 +89,22 @@ cmbMetodos.current(0)
 tkinter.Label(frameEntries, text="Soluciones", bg="#212121",fg="#ff064f").grid(row=5, column=0)
 tkinter.Entry(frameEntries, exportselection=0, bg = "#2d000d", fg = "#FFFFFF", state="readonly").grid(row=6, column=0)
 
-
+print(cadena)
 #Area de grafico
+#t -> rango entre el cual estaran los valores de la grafica
+t = np.arange(-5,3, 0.1)
+#Aqui se inserta la funcion a graficar
+fig.add_subplot(111).plot(t, 2*t**2)
+#Aqui se crea el area para graficar
 tkinter.Label(frGrafica, text="Grafica de la funcion", bg="#212121",fg="#ff064f").grid(row=0, column=2, columnspan=3)
-tkinter.Canvas(frGrafica, height=500, width=500, bg="#512DA8").grid(row=1,column=2, rowspan=6, columnspan=3)
+canvas = FigureCanvasTkAgg(fig, frGrafica)
+canvas.draw()
+canvas.get_tk_widget().grid(row = 1, column = 0, columnspan = 6)
 #--
 #Escribe en el Entry llamado fn
 def escribir(text):
     func.set(func.get()+text.cget("text"))
+
 #--
 #Creacion de botones numericos
 zero = tkinter.Button(frame, bg="#b606ff", fg="#FFFFFF", text="0", activebackground="#673AB7", command=lambda:escribir(zero))
