@@ -1,7 +1,7 @@
 import math
 
-def f(x,funcion):
-    return eval(funcion.replace("x",str(x)))
+def f(a,funcion):
+    return funcion.subs(x,a)
 
 
 #Metodo de la falsa posicion

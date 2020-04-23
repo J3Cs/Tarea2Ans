@@ -5,9 +5,8 @@ import math
 
 x = Symbol('x')
 #Funcion del Ejercicio
-def f(x,funcion):
-    return eval(funcion.replace("x",str(x)))
-
+def f(a,funcion):
+    return funcion.subs(x,a)
 
 #Sacando la primer derivada
 def dx(a,funcion):
@@ -38,9 +37,4 @@ def newton_rapshon(xi,Es,funcion):
         return x1
     else:
         return "No converge en ese punto"
-
-
-
-
-
 

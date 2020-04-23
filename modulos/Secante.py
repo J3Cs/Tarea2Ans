@@ -1,7 +1,8 @@
 import math
 
-def f(x,funcion):
-    return eval(funcion.replace("x",str(x)))
+def f(a,funcion):
+    x = symbols('x')
+    return funcion.subs(x,a)
 
 def secante(xi,xh,Es,funcion):
     """
