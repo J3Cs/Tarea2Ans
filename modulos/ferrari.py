@@ -24,7 +24,7 @@ def tartagliaByFerrari(coef):
         x=((A)**(1/3))+((B)**(1/3))+k
     elif D<0:
         ang=math.acos((math.sqrt(27)*q)/(2*p)*math.sqrt(-1*p))
-        x=2*math.sqrt(-P/3)*math.cos(ang/3)+k
+        x=2*math.sqrt(-p/3)*math.cos(ang/3)+k
     else:
         x=2*(-q/2)**(1/3)
     return x

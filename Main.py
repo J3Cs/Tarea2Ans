@@ -143,6 +143,9 @@ def cmbSelect(event):
     tkinter.Button(frameEntries, bg="#b606ff", fg="#FFFFFF", text="Calcular", activebackground="#673AB7", command=lambda:calcular(Newton.newton_rapshon(float(xi.get()), Es, crearfuncion(func.get())))).grid(row=9, column=0, columnspan=2)
   elif cmbMetodos.get() == "Tartaglia":
     tkinter.Button(frameEntries, bg="#b606ff", fg="#FFFFFF", text="Calcular", activebackground="#673AB7", command=lambda:calcular(Tartaglia.tartaglia(coefs(func.get())))).grid(row=9, column=0, columnspan=2)
+  #elif cmbMetodos.get() == "Ferrari":
+    #tkinter.Button(frameEntries, bg="#b606ff", fg="#FFFFFF", text="Calcular", activebackground="#673AB7", command=lambda:calcular(ferrari.ferrari(coefs(func.get())))).grid(row=9, column=0, columnspan=2)
+
 
 def calcularLimites(text):
   limits = []

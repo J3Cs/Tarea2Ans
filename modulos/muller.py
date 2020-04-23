@@ -1,5 +1,5 @@
 import math
-
+from sympy import *
 
 #Funcion del Ejercicio
 def f(x,funcion):
