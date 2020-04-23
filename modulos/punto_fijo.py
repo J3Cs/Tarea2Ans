@@ -10,7 +10,6 @@ def dx(a,funcion):
     fprima=diff(funcion,x)
     return f(a,fprima)
 
-
 #Reicibe valores iniciales a y b recibe r valor que esta entre a y b y recibe Error especifico y la funcion despejada en g(x)
 def punto_fijo(a,b,r,Es,funcion):
     """
