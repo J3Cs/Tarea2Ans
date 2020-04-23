@@ -1,7 +1,7 @@
 from sympy import *
 import math
 
-x = Symbol('x')
+x = symbols('x')
 #Funcion del Ejercicio
 def f(a,funcion):
     return funcion.subs(x,a)

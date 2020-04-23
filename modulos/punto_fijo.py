@@ -1,25 +1,25 @@
+from sympy import *
 import math
-
-#funcion del ejercicio
+x = symbols('x')
+#Funcion del Ejercicio
 def f(a,funcion):
-    x = symbols('x')
-    return funcion.subs(x,a)
+    return funcion.subs( x,a)
 
 #Sacando la primer derivada
 def dx(a,funcion):
-    
-    return f(a,str(diff(eval(funcion),x)))
+    fprima=diff(funcion,x)
+    return f(a,fprima)
 
-#Punto Fijo
+
 #Reicibe valores iniciales a y b recibe r valor que esta entre a y b y recibe Error especifico y la funcion despejada en g(x)
 def punto_fijo(a,b,r,Es,funcion):
-     """
+    """
     Parametros:
-     a -- primer valor inicial
-     b-- Segundo valor}
-     r-- valor entre a y b
-     Es -- error especifico
-     funcion -- la cadena de la funcion despejada (gx)
+    a -- primer valor inicial
+    b-- Segundo valor}
+    r-- valor entre a y b
+    Es -- error especifico
+    funcion -- la cadena de la funcion despejada (gx)
     """
     ab=f(a,funcion)-a
     ba=f(b,funcion)-b
@@ -35,4 +35,4 @@ def punto_fijo(a,b,r,Es,funcion):
             return "no converge"
     else:
         return "no converge"
-    return r
+    return float(r)
