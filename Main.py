@@ -5,7 +5,6 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolb
 from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
 import numpy as np
-from sympy import *
 import re
 
 # create main window
@@ -22,6 +21,7 @@ cmbStyle.theme_create('cmbs',settings = {'TCombobox':
                                        }}})
 cmbStyle.theme_use('cmbs')
 
+
 #Frames para ordenar los componentes
 frameEntries = tkinter.Frame(master,bg="#212121")
 frameEntries.grid(row=0, column=1, columnspan=2)
@@ -37,7 +37,6 @@ frameFn.grid(row=1, column=2)
 metodos=["Seleccione un metodo", "Biseccion", "Falsa Posicion", "Punto Fijo", "Newton Raphson", "Secante", "Tartaglia", "Ferrari", "Horner", "Müller", "Bairstow"]
 func = tkinter.StringVar()
 fig = Figure(figsize=(5,4), dpi=100)
-x = symbols('x')
 #--
 
 #Metodo para obtener los coeficientes de la funcion pasada como String
