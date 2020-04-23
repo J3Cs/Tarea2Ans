@@ -35,4 +35,3 @@ def newton_rapshon(xi,Es,funcion):
         return x1
     else:
         return "No converge en ese punto"
-
