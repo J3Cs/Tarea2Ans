@@ -79,6 +79,7 @@ def crearfuncion(text):
     for i in range(len(coeficient)):
       funci = funci + coeficient[i]*x**i   
     return funci
+  
 #Crea una f(x) a partir de los coeficientes obtenidos del string
 def obtener(text):
   if text == "":
@@ -108,17 +109,41 @@ def cmbSelect(event):
   if cifras.get()=="" or func.get() == "":
     messagebox.showerror(message="Por favor llene los campos correspondientes para realizar el calculo")
     cmbMetodos.current(0)
-  else:
-    if cmbMetodos.get() == "Biseccion" or cmbMetodos.get() == "Falsa Posicion":
-      calcEs(cifras.get())
-      tkinter.Label(frameEntries, text="Ingrese valor inicial", bg="#212121",fg="#ff064f").grid(row=5, column=0)
-      x1e = tkinter.Entry(frameEntries, exportselection=0, textvariable=x1, bg = "#673AB7", fg = "#FFFFFF")
-      x1e.grid(row=6, column=0)
-      tkinter.Label(frameEntries, text="Ingrese valor final", bg="#212121",fg="#ff064f").grid(row=5, column=1)
-      x2e = tkinter.Entry(frameEntries, exportselection=0, textvariable=x2, bg = "#673AB7", fg = "#FFFFFF")
-      x2e.grid(row=6, column=1)
+  elif cmbMetodos.get() == "Biseccion" or cmbMetodos.get() == "Falsa Posicion":
+    calcEs(cifras.get())
+    tkinter.Label(frameEntries, text="Ingrese valor inicial", bg="#212121",fg="#ff064f").grid(row=5, column=0)
+    x1e = tkinter.Entry(frameEntries, exportselection=0, textvariable=x1, bg = "#673AB7", fg = "#FFFFFF")
+    x1e.grid(row=6, column=0)
+    tkinter.Label(frameEntries, text="Ingrese valor final", bg="#212121",fg="#ff064f").grid(row=5, column=1)
+    x2e = tkinter.Entry(frameEntries, exportselection=0, textvariable=x2, bg = "#673AB7", fg = "#FFFFFF")
+    x2e.grid(row=6, column=1)
+    if cmbMetodos.get() == "Biseccion":
       tkinter.Button(frameEntries, bg="#b606ff", fg="#FFFFFF", text="Calcular", activebackground="#673AB7", command=lambda:calcular(Biseccion.biseccion(int(x1.get()), int(x2.get()), Es, crearfuncion(func.get())))).grid(row=7, column=0, columnspan=2)
-      
+    elif cmbMetodos.get() == "Falsa Posicion":
+      tkinter.Button(frameEntries, bg="#b606ff", fg="#FFFFFF", text="Calcular", activebackground="#673AB7", command=lambda:calcular(Falsa_posicion.falsa_posicion(int(x1.get()), int(x2.get()), Es, crearfuncion(func.get())))).grid(row=7, column=0, columnspan=2)
+  elif cmbMetodos.get() == "Horner":
+    limitA = tkinter.StringVar()
+    limitB = tkinter.StringVar()
+    limits = calcularLimites(coefs(func.get()))
+    limitA.set(limits[0])
+    limitB.set(limits[1])
+    tkinter.Label(frameEntries, text="Valor inferior de intervalo", bg="#212121",fg="#ff064f").grid(row=5, column=0)
+    tkinter.Entry(frameEntries, exportselection=0, textvariable=limitA, bg = "#673AB7", fg = "#FFFFFF").grid(row=6, column=0)
+    tkinter.Label(frameEntries, text="Valor superior de intervalo", bg="#212121",fg="#ff064f").grid(row=5, column=1)
+    tkinter.Entry(frameEntries, exportselection=0, textvariable=limitB, bg = "#673AB7", fg = "#FFFFFF").grid(row=6, column=1)
+    tkinter.Label(frameEntries, text="Ingrese un valor que este dentro del intervalo", bg="#212121",fg="#ff064f").grid(row=7, column=1, columnspan=2)
+    xi = tkinter.StringVar()
+    tkinter.Entry(frameEntries, exportselection=0, textvariable=xi, bg = "#673AB7", fg = "#FFFFFF").grid(row=8, column=0, columnspan=2)
+    tkinter.Button(frameEntries, bg="#b606ff", fg="#FFFFFF", text="Calcular", activebackground="#673AB7", command=lambda:calcular(Horner.Horner(coefs(func.get()), Es, float(limitA.get()), float(limitB.get()), float(xi.get())))).grid(row=9, column=0, columnspan=2)
+
+def calcularLimites(text):
+  limits = []
+  a = float(text[0])
+  b = float(text[len(text)-1])
+  limits.append(Abs(a)/(Abs(a)+b))
+  limits.append((Abs(b)+b)/Abs(b))
+  return limits
+
 def calcular(fn):
   raiz.set(fn)
 #-- 
@@ -142,8 +167,8 @@ cmbMetodos.grid(row=4, column=1)
 cmbMetodos.current(0)
 cmbMetodos.bind("<<ComboboxSelected>>", cmbSelect)
 
-tkinter.Label(frameEntries, text="Soluciones", bg="#212121",fg="#ff064f").grid(row=8, column=0, columnspan=2)
-tkinter.Entry(frameEntries, exportselection=0, disabledbackground = "#2d000d", textvariable=raiz, fg = "#FFFFFF", state="disabled", width=60).grid(row=9, column=0, columnspan=2)
+tkinter.Label(frameEntries, text="Soluciones", bg="#212121",fg="#ff064f").grid(row=10, column=0, columnspan=2)
+tkinter.Entry(frameEntries, exportselection=0, disabledbackground = "#2d000d", textvariable=raiz, fg = "#FFFFFF", state="disabled", width=60).grid(row=11, column=0, columnspan=2)
 
 
 #Area de grafico

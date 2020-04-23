@@ -1,9 +1,5 @@
 import math
-
-def f(a,funcion):
-    return funcion.subs(x,a)
-
-
+from sympy import *
 #Metodo de la falsa posicion
 #Recibe como parametro 2 valores enteros iniciales, el error especifico y la cadena de la funcion ingresada
 def falsa_posicion(x1,x2,Es,funcion):
@@ -15,14 +11,15 @@ def falsa_posicion(x1,x2,Es,funcion):
      Es -- error especifico
      funcion -- la cadena de la funcion
     """
-    if (f(x1,funcion)*f(x2,funcion)<0):
+    x = symbols('x')
+    if (funcion.subs(x, x1)*funcion.subs(x, x2)<0):
         xr=0
         anterior=0
         Ea=1
         while Ea>Es:
-            xr = x2 - ((x1-x2) * f(x2,funcion))/( f(x1,funcion) - f(x2,funcion) )
+            xr = x2 - ((x1-x2) * funcion.subs(x, x2))/( funcion.subs(x, x1) - funcion.subs(x, x2) )
 
-            if f(x1,funcion) * f(xr,funcion) < 0:
+            if funcion.subs(x, x1) * funcion.subs(x, xr) < 0:
                 anterior = x2
                 x2 = xr
             else:

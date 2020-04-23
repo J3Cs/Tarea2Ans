@@ -1,15 +1,15 @@
 import math
 import re
 def Horner(func, Es, limitA, limitB, xi):
-    fun = func
-    Es = Es
     Ea = 1
     xi = xi
+    xi1 = 0
     arr = []
     arr1 = []
     R = 0.0
     S = 0.0
-    coeficientes = coefs(fun)
+    coeficientes = func
+    print(func)
     limitA = limitA
     limitB = limitB
     for t in range(len(coeficientes)):
@@ -126,6 +126,7 @@ def Horner(func, Es, limitA, limitB, xi):
             S = arr1[j]
         xi1 = xi - (R/S)
         Ea = math.fabs((xi1-xi)/xi1)*100
+    return xi1
 
 #Metodo para obtener los coeficientes de la funcion pasada como String
 def coefs(entrada):
