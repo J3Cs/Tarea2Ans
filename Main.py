@@ -73,7 +73,12 @@ def coefs(entrada):
     coeficientes[g] = v
   return coeficientes
 #--
-
+def crearfuncion(text):
+    coeficient = coefs(text)
+    funci = 0*x
+    for i in range(len(coeficient)):
+      funci = funci + coeficient[i]*x**i   
+    return funci
 #Crea una f(x) a partir de los coeficientes obtenidos del string
 def obtener(text):
   if text == "":
@@ -84,10 +89,8 @@ def obtener(text):
     t = np.arange(-5,5, 0.1)
     fig.clear()
     cadena = 0*t
-    funci = 0*x
     for i in range(len(coeficient)):
       cadena = cadena + (coeficient[i]*t**i)
-      funci = funci + coeficient[i]*x**i    
     #Aqui se inserta la funcion a graficar
     fig.add_subplot(111).plot(t, cadena)
     #Aqui se crea la grafica
@@ -114,10 +117,8 @@ def cmbSelect(event):
       tkinter.Label(frameEntries, text="Ingrese valor final", bg="#212121",fg="#ff064f").grid(row=5, column=1)
       x2e = tkinter.Entry(frameEntries, exportselection=0, textvariable=x2, bg = "#673AB7", fg = "#FFFFFF")
       x2e.grid(row=6, column=1)
-      tkinter.Button(frameEntries, bg="#b606ff", fg="#FFFFFF", text="Calcular", activebackground="#673AB7", command=lambda:calcular(Biseccion.biseccion(int(x1.get()), int(x2.get()), Es, funci))).grid(row=7, column=0, columnspan=2)
-      if x1.get() == "" or x2.get() == "":
-        messagebox.showinfo(message="Por favor llene las casillas correspondientes")
-
+      tkinter.Button(frameEntries, bg="#b606ff", fg="#FFFFFF", text="Calcular", activebackground="#673AB7", command=lambda:calcular(Biseccion.biseccion(int(x1.get()), int(x2.get()), Es, crearfuncion(func.get())))).grid(row=7, column=0, columnspan=2)
+      
 def calcular(fn):
   raiz.set(fn)
 #-- 
