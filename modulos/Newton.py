@@ -4,7 +4,7 @@ import math
 x = symbols('x')
 #Funcion del Ejercicio
 def f(a,funcion):
-    return funcion.subs( x,a)
+    return funcion.subs(x,a)
 
 #Sacando la primer derivada
 def dx(a,funcion):

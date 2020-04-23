@@ -47,6 +47,7 @@ x2 = tkinter.StringVar()
 Es = 0.0
 raiz = tkinter.StringVar()
 funci = 0*x
+xi = tkinter.StringVar()
 #--
 
 #Metodo para obtener los coeficientes de la funcion pasada como String
@@ -132,9 +133,12 @@ def cmbSelect(event):
     tkinter.Label(frameEntries, text="Valor superior de intervalo", bg="#212121",fg="#ff064f").grid(row=5, column=1)
     tkinter.Entry(frameEntries, exportselection=0, textvariable=limitB, bg = "#673AB7", fg = "#FFFFFF").grid(row=6, column=1)
     tkinter.Label(frameEntries, text="Ingrese un valor que este dentro del intervalo", bg="#212121",fg="#ff064f").grid(row=7, column=1, columnspan=2)
-    xi = tkinter.StringVar()
     tkinter.Entry(frameEntries, exportselection=0, textvariable=xi, bg = "#673AB7", fg = "#FFFFFF").grid(row=8, column=0, columnspan=2)
     tkinter.Button(frameEntries, bg="#b606ff", fg="#FFFFFF", text="Calcular", activebackground="#673AB7", command=lambda:calcular(Horner.Horner(coefs(func.get()), Es, float(limitA.get()), float(limitB.get()), float(xi.get())))).grid(row=9, column=0, columnspan=2)
+  elif cmbMetodos.get() == "Newton Raphson":
+    tkinter.Label(frameEntries, text="Ingrese un valor", bg="#212121",fg="#ff064f").grid(row=7, column=1, columnspan=2)
+    tkinter.Entry(frameEntries, exportselection=0, textvariable=xi, bg = "#673AB7", fg = "#FFFFFF").grid(row=8, column=0, columnspan=2)
+    tkinter.Button(frameEntries, bg="#b606ff", fg="#FFFFFF", text="Calcular", activebackground="#673AB7", command=lambda:calcular(Newton.newton_rapshon(float(xi.get()), Es, crearfuncion(func.get())))).grid(row=9, column=0, columnspan=2)
 
 def calcularLimites(text):
   limits = []
