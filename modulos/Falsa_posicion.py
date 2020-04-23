@@ -1,35 +1,35 @@
 import math
 
-print ("\nMetodo de la Falsa Posicion")
+def f(x,funcion):
+    return eval(funcion.replace("x",str(x)))
 
 
-#Funcion del Ejercicio
-def f(x):
- return (1.5)-math.log(1+x**2)
+#Metodo de la falsa posicion
+#Recibe como parametro 2 valores enteros iniciales, el error especifico y la cadena de la funcion ingresada
+def falsa_posicion(x1,x2,Es,funcion):
+    """
+     Devuelve una lista con las posibles raiz de la ecuacio.
+     Parametros:
+     x1 -- primer valor inicial
+     x2 -- Segundo valor
+     Es -- error especifico
+     funcion -- la cadena de la funcion
+    """
+    if (f(x1,funcion)*f(x2,funcion)<0):
+        xr=0
+        anterior=0
+        Ea=1
+        while Ea>Es:
+            xr = x2 - ((x1-x2) * f(x2,funcion))/( f(x1,funcion) - f(x2,funcion) )
 
-# iniciando valores
-x0 = 1
-x1 = 2
-cs=4
-es=(0.5*(10**(2-cs)))
+            if f(x1,funcion) * f(xr,funcion) < 0:
+                anterior = x2
+                x2 = xr
+            else:
+                x1 = xr
 
-
-# Metodo
-print ("\n#\t\tX2\t\t\t\tEa")
-
-
-itera = 1
-condicion = True
-while condicion:
-    x2 = x0 - (x1-x0) * f(x0)/( f(x1) - f(x0) )
-    print(itera,"\t", x2,"\t","\t", f(x2))
-
-    if f(x0) * f(x2) < 0:
-        x1 = x2
+            Ea = abs((xr - anterior) / xr) * 100
+        return xr
     else:
-         x0 = x2
-
-    itera = itera + 1
-    condicion = abs(f(x2)) > es
+        return "no sirve"
     
-print("\nLa Raiz es:", x2,"\nError Aprox: ", abs(f(x2)),"\n")

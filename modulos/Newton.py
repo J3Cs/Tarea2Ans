@@ -1,42 +1,43 @@
 
-import numpy as np
+
 from sympy import *
 import math
 
-
-print ("\nMetodo Newton Raphson")
 x = Symbol('x')
 #Funcion del Ejercicio
-def f(x):
-    return (1.5)-math.log(1+x**2)
-    
+def f(x,funcion):
+    return eval(funcion.replace("x",str(x)))
+
 
 #Sacando la primer derivada
-def dx(x):
-    return ((2*x)/-((x**2)+1))
+def dx(a,funcion):
+    
+    return f(a,str(diff(eval(funcion),x)))
 
-#deriv =diff(f(x))
-#print (deriv)
-#print (dx)
-print("\n#","        Raiz","        convergencia","     Error Aprox")
+#Sacando la segunda derivada
+def dxx(a,funcion):
+    
+    return f(a,str(diff(eval(funcion),x,x)))
 
-#Valores de el error aceptado,cifras significativas y el maximo de iteraciones permitidas
-cs=5
-x0=2
-es=(0.5*(10**(2-cs)))
-imax = 1000
-
-#valores iniciales para el bucle
-ea=1
-xi=x0
-itera=0
-while ea > es and itera < imax:
-    ea = np.abs(f(xi)/(dx(xi)/xi))
-    x1 = xi - f(xi)/dx(xi)
-    print('%i   %15.12f   %15.12f   %15.12f' % (itera+1, x1, np.abs(f(xi)/dx(xi)), ea))
-    xi = x1
-    itera += 1
-print ("\nLa raiz es: ", x1,"\nError Aprox: ",ea,"\n")
+def newton_rapshon(xi,Es,funcion):
+    #valores iniciales para el bucle
+    """
+    Parametros:
+     xi -- primer valor inicial
+     Es -- error especifico
+     funcion -- la cadena de la funcion
+    """
+    
+    if(abs((f(xi,funcion)*(dxx(xi,funcion))/(dx(xi,funcion)**2)))<1):
+        Ea=1
+        while Ea > Es :
+            
+            x1 = xi - f(xi,funcion)/dx(xi,funcion)
+            xi = x1
+            Ea = abs(f(xi,funcion)/(dx(xi,funcion)/xi))
+        return x1
+    else:
+        return "No converge en ese punto"
 
 
 
