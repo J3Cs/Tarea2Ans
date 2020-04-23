@@ -1,12 +1,10 @@
-
-
 from sympy import *
 import math
 
 x = Symbol('x')
 #Funcion del Ejercicio
 def f(a,funcion):
-    return funcion.subs(global x,a)
+    return funcion.subs(x,a)
 
 #Sacando la primer derivada
 def dx(a,funcion):
