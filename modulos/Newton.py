@@ -6,17 +6,17 @@ import math
 x = Symbol('x')
 #Funcion del Ejercicio
 def f(a,funcion):
-    return funcion.subs(x,a)
+    return funcion.subs(global x,a)
 
 #Sacando la primer derivada
 def dx(a,funcion):
-    
-    return f(a,str(diff(eval(funcion),x)))
+    fprima=diff(funcion,x)
+    return f(a,fprima)
 
 #Sacando la segunda derivada
 def dxx(a,funcion):
-    
-    return f(a,str(diff(eval(funcion),x,x)))
+    fprima=diff(funcion,x,x)
+    return f(a,fprima)
 
 def newton_rapshon(xi,Es,funcion):
     #valores iniciales para el bucle

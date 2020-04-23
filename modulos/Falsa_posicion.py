@@ -29,4 +29,7 @@ def falsa_posicion(x1,x2,Es,funcion):
         return xr
     else:
         return "no sirve"
-    
+
+x=symbols('x')
+f=math.e**x-math.pi*x
+print (falsa_posicion(1,1,0.05,f))

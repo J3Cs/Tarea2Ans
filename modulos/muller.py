@@ -1,59 +1,44 @@
-from sys import argv
-print ("\nMetodo Muller\n")
+import math
 
-def f(x):
-    return (x**7)-(x**5)+(8*x**4)-(8*x**3)-(x**2)+(x)-9
+
+#Funcion del Ejercicio
+def f(x,funcion):
+    return eval(funcion.replace("x",str(x)))
+
+#Recibe tres valores iniciales y la cadena de la funcion
+def muller(x0,x1,x2,Es,funcion):
+    """
+    Parametros:
+     x0 -- primer valor inicial
+     x1 -- Segundo valor
+     x2 -- tercer valor
+     Es -- error especifico
+     funcion -- la cadena de la funcion
+    """
+    Ea=1
+
+    while Ea>Es:
     
-#valores iniciales
-p0 = 0
-p1 = 1
-p2 = 1.5
-cs=5
-es=0.5*(10**(2-cs))
-
-#Evaluando los puntos
-fp0 = f(p0)
-fp1 = f(p1)
-fp2 = f(p2)
-
-print("Las raices estimadas son: ")
-print("cuando f(",p0,") = ",fp0)
-print("cuando f(",p1,") = ",fp1)
-print("cuando f(",p2,") = ",fp2)
-print("\n#\t\tf(x)\t\t\t")
-itera = 0
-print (itera,"\t\t",p0,"\t\t\t",fp0)
-fp3 = 1e9
-
-
-while itera<100 and abs(fp3) >= es:
-    fp0 = f(p0)
-    fp1 = f(p1)
-    fp2 = f(p2)
-
-   
-    o = fp1-fp2
-    n = fp0-fp2
-    s = p1-p2
-    r = p0-p2
-    det = r*s*(p0-p1)
-    a = (s*n-r*o)/det
-    b = ((r**2)*o-(s**2)*n)/det
-    c = fp2
-    itera += 1
-
-    
-    x1 = (-2*c)/(b+(b**2-4*a*c)**.5)
-    x2 = (-2*c)/(b-(b**2-4*a*c)**.5)
-
-    if b>0:
-        p3 = p2+x1
-    else:
-        p3 = p2+x2
-
-    fp3=f(p3)
-    print (itera,"\t",p3,"\t",fp3)
-    p2 = p3   
-
-print ("\nLa Raiz es = ", p3,"\n")     
+        h0=x1-x0
+        h1=x2-x1
+        delta0=(f(x1,funcion)-f(x0,funcion))/h0
+        delta1=(f(x2,funcion)-f(x1,funcion))/h1
+        a=(delta1-delta0)/(h1+h0)
+        b=a*h1+delta1
+        c=f(x2,funcion)
+        if b>0:
+            if (b*b-4*a*c)>0:
+                xr=x2+(-2*c)/(b+math.sqrt(b*b-4*a*c)) 
+            else:
+                xr=x2+(-2*c)/(complex(b,math.sqrt(b*b-4*a*c))) 
+        else:
+            if (b*b-4*a*c)>0:
+                xr=x2+(-2*c)/(b-math.sqrt(b*b-4*a*c)) 
+            else:
+                xr=x2+(-2*c)/(complex(b,-math.sqrt(b*b-4*a*c))) 
+        Ea=Abs((xr-x2)/xr)*100
+        x0=x1
+        x1=x2
+        x2=xr
+    return x2
 
