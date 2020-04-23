@@ -5,7 +5,6 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolb
 from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
 import numpy as np
-from sympy import *
 import re
 
 # create main window
@@ -21,6 +20,7 @@ cmbStyle.theme_create('cmbs',settings = {'TCombobox':
                                        'foreground': '#ffffff'
                                        }}})
 cmbStyle.theme_use('cmbs')
+
 
 #Frames para ordenar los componentes
 frameEntries = tkinter.Frame(master,bg="#212121")
