@@ -4,11 +4,7 @@ import math
 #Funcion del Ejercicio
 def f(x,funcion):
     return eval(funcion.replace("x",str(x)))
-x0=1
-x1=2
-x2=3
-Es=0.05
-funcion="x**3+2x**2+x+1"
+
 #Recibe tres valores iniciales y la cadena de la funcion
 def muller(x0,x1,x2,Es,funcion):
     """
