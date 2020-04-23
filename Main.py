@@ -1,11 +1,14 @@
 # -*- coding: utf-8 -*-
 import tkinter
 from tkinter import ttk
+from tkinter import messagebox
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
 import numpy as np
+from sympy import *
 import re
+from modulos import bairstown, Biseccion, Falsa_posicion, Horner, muller, Newton, Secante, Tartaglia
 
 # create main window
 master = tkinter.Tk()
@@ -34,9 +37,16 @@ frameFn.grid(row=1, column=2)
 #--
 
 #Variables
+x = symbols('x') 
 metodos=["Seleccione un metodo", "Biseccion", "Falsa Posicion", "Punto Fijo", "Newton Raphson", "Secante", "Tartaglia", "Ferrari", "Horner", "Müller", "Bairstow"]
 func = tkinter.StringVar()
 fig = Figure(figsize=(5,4), dpi=100)
+cifras = tkinter.StringVar()
+x1 = tkinter.StringVar()
+x2 = tkinter.StringVar()
+Es = 0.0
+raiz = tkinter.StringVar()
+funci = 0*x
 #--
 
 #Metodo para obtener los coeficientes de la funcion pasada como String
@@ -66,37 +76,73 @@ def coefs(entrada):
 
 #Crea una f(x) a partir de los coeficientes obtenidos del string
 def obtener(text):
+  if text == "":
+    messagebox.showerror(message="Ingrese una funcion para poder graficar")
+  else:
     coeficient = coefs(text)
     #t -> rango entre el cual estaran los valores de la grafica
     t = np.arange(-5,5, 0.1)
     fig.clear()
     cadena = 0*t
+    funci = 0*x
     for i in range(len(coeficient)):
       cadena = cadena + (coeficient[i]*t**i)
-    
+      funci = funci + coeficient[i]*x**i    
     #Aqui se inserta la funcion a graficar
     fig.add_subplot(111).plot(t, cadena)
-    #Aqui se crea el area para graficar
+    #Aqui se crea la grafica
     tkinter.Label(frGrafica, text="Grafica de la funcion", bg="#212121",fg="#ff064f").grid(row=0, column=2, columnspan=3)
     canvas = FigureCanvasTkAgg(fig, frGrafica)
     canvas.draw()
     canvas.get_tk_widget().grid(row = 6, column = 0, columnspan = 6)
 #--
 #--
+def calcEs(text):
+  Es = 0.5*10**(2-int(text))
+  
+#Obtiene el elemento seleccionado del ComboBox
+def cmbSelect(event):
+  if cifras.get()=="" or func.get() == "":
+    messagebox.showerror(message="Por favor llene los campos correspondientes para realizar el calculo")
+    cmbMetodos.current(0)
+  else:
+    if cmbMetodos.get() == "Biseccion" or cmbMetodos.get() == "Falsa Posicion":
+      calcEs(cifras.get())
+      tkinter.Label(frameEntries, text="Ingrese valor inicial", bg="#212121",fg="#ff064f").grid(row=5, column=0)
+      x1e = tkinter.Entry(frameEntries, exportselection=0, textvariable=x1, bg = "#673AB7", fg = "#FFFFFF")
+      x1e.grid(row=6, column=0)
+      tkinter.Label(frameEntries, text="Ingrese valor final", bg="#212121",fg="#ff064f").grid(row=5, column=1)
+      x2e = tkinter.Entry(frameEntries, exportselection=0, textvariable=x2, bg = "#673AB7", fg = "#FFFFFF")
+      x2e.grid(row=6, column=1)
+      tkinter.Button(frameEntries, bg="#b606ff", fg="#FFFFFF", text="Calcular", activebackground="#673AB7", command=lambda:calcular(Biseccion.biseccion(int(x1.get()), int(x2.get()), Es, funci))).grid(row=7, column=0, columnspan=2)
+      if x1.get() == "" or x2.get() == "":
+        messagebox.showinfo(message="Por favor llene las casillas correspondientes")
+
+def calcular(fn):
+  raiz.set(fn)
+#-- 
+
 #Componentes de la app
-tkinter.Label(frameEntries, text="Ingrese la funcion a evaluar", bg="#212121",fg="#ff064f").grid(row=0, column=0)
+tkinter.Label(frameEntries, text="Ingrese la funcion a evaluar", bg="#212121",fg="#ff064f").grid(row=0, column=0, columnspan=2)
 fn = tkinter.Entry(frameEntries, exportselection=0, textvariable=func, bg = "#673AB7", fg = "#FFFFFF", width=60)
-fn.grid(row=1, column=0)
+fn.grid(row=1, column=0, columnspan=2)
 fn.focus()
-tkinter.Button(frameEntries, bg="#b606ff", fg="#FFFFFF", text="Graficar", activebackground="#673AB7", command=lambda:obtener(func.get())).grid(row=2, column=0)
+tkinter.Button(frameEntries, bg="#b606ff", fg="#FFFFFF", text="Graficar", activebackground="#673AB7", command=lambda:obtener(func.get())).grid(row=2, column=0, columnspan=2)
 
-tkinter.Label(frameEntries, text="Metodos", bg="#212121",fg="#ff064f").grid(row=3, column=0)
+
+tkinter.Label(frameEntries, text="Cifras Significativas", bg="#212121",fg="#ff064f").grid(row=3, column=0)
+cs = tkinter.Entry(frameEntries, exportselection=0, textvariable=cifras, bg = "#673AB7", fg = "#FFFFFF", width=20)
+cs.grid(row=4, column=0)
+
+
+tkinter.Label(frameEntries, text="Metodos", bg="#212121",fg="#ff064f").grid(row=3, column=1)
 cmbMetodos = ttk.Combobox(frameEntries, values=metodos, state="readonly")
-cmbMetodos.grid(row=4, column=0)
+cmbMetodos.grid(row=4, column=1)
 cmbMetodos.current(0)
+cmbMetodos.bind("<<ComboboxSelected>>", cmbSelect)
 
-tkinter.Label(frameEntries, text="Soluciones", bg="#212121",fg="#ff064f").grid(row=5, column=0)
-tkinter.Entry(frameEntries, exportselection=0, bg = "#2d000d", fg = "#FFFFFF", state="readonly").grid(row=6, column=0)
+tkinter.Label(frameEntries, text="Soluciones", bg="#212121",fg="#ff064f").grid(row=8, column=0, columnspan=2)
+tkinter.Entry(frameEntries, exportselection=0, disabledbackground = "#2d000d", textvariable=raiz, fg = "#FFFFFF", state="disabled", width=60).grid(row=9, column=0, columnspan=2)
 
 
 #Area de grafico
