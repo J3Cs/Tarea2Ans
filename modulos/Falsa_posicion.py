@@ -1,6 +1,8 @@
 import math
+from sympy import *
 
 def f(a,funcion):
+    x=symbols('x')
     return funcion.subs(x,a)
 
 
@@ -32,4 +34,7 @@ def falsa_posicion(x1,x2,Es,funcion):
         return xr
     else:
         return "no sirve"
-    
+
+x=symbols('x')
+f=math.e**x-math.pi*x
+print (falsa_posicion(1,1,0.05,f))

@@ -1,5 +1,5 @@
 import math
-
+from sympy import *
 def f(a,funcion):
     x = symbols('x')
     return funcion.subs(x,a)
