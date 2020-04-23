@@ -1,27 +1,27 @@
 import math
 
-print ("\nMetodo de la Secante")
+def f(x,funcion):
+    return eval(funcion.replace("x",str(x)))
+
+def secante(xi,xh,Es,funcion):
+    """
+     Devuelve una lista con las posibles raiz de la ecuacio.
+     Parametros:
+     xi -- primer valor inicial
+     xh -- Segundo valor
+     Es -- error especifico
+     funcion -- la cadena de la funcion
+    """
+    if (f(xi,funcion)*f(xh,funcion)<0):
+        Ea=1
+        while Ea>Es:
+            
+            xi1 = xi - (f(xi,funcion)*(xh-xi))/( f(xh,funcion) - f(xi,funcion) )
+            Ea = abs((xi1-xi)/xi1) * 100
+            xh=xi
+            xi=xi1
+        return xi
+    else:
+        return "no existe raiz"
 
 
-def f(x):
- return (1.5)-math.log(1+x**2)
-
-# iniciando valores
-x0 = 1
-x1 = 2
-cs=3
-es=(0.5*(10**(2-cs)))
-
-#Metodo
-print("\n#\t\tX2\t\t\tEa")
-itera = 1
-condicion = True
-while condicion:
-     x2 = x0 - (x1-x0)*f(x0)/( f(x1) - f(x0) ) 
-     print(itera,"\t", x2,"\t", f(x2))
-     x0 = x1
-     x1 = x2
-     itera = itera + 1        
-     condicion = abs(f(x2)) > es
-
-print("\nLa Raiz es: ", x2,"\nEl Error Aprox: ",abs(f(x2)),"\n")
