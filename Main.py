@@ -110,7 +110,7 @@ def cmbSelect(event):
   if cifras.get()=="" or func.get() == "":
     messagebox.showerror(message="Por favor llene los campos correspondientes para realizar el calculo")
     cmbMetodos.current(0)
-  elif cmbMetodos.get() == "Biseccion" or cmbMetodos.get() == "Falsa Posicion":
+  elif cmbMetodos.get() == "Biseccion" or cmbMetodos.get() == "Falsa Posicion" or cmbMetodos.get()=="Secante":
     calcEs(cifras.get())
     tkinter.Label(frameEntries, text="Ingrese valor inicial", bg="#212121",fg="#ff064f").grid(row=5, column=0)
     x1e = tkinter.Entry(frameEntries, exportselection=0, textvariable=x1, bg = "#673AB7", fg = "#FFFFFF")
@@ -122,6 +122,8 @@ def cmbSelect(event):
       tkinter.Button(frameEntries, bg="#b606ff", fg="#FFFFFF", text="Calcular", activebackground="#673AB7", command=lambda:calcular(Biseccion.biseccion(int(x1.get()), int(x2.get()), Es, crearfuncion(func.get())))).grid(row=7, column=0, columnspan=2)
     elif cmbMetodos.get() == "Falsa Posicion":
       tkinter.Button(frameEntries, bg="#b606ff", fg="#FFFFFF", text="Calcular", activebackground="#673AB7", command=lambda:calcular(Falsa_posicion.falsa_posicion(int(x1.get()), int(x2.get()), Es, crearfuncion(func.get())))).grid(row=7, column=0, columnspan=2)
+    elif cmbMetodos.get() == "Secante":
+      tkinter.Button(frameEntries, bg="#b606ff", fg="#FFFFFF", text="Calcular", activebackground="#673AB7", command=lambda:calcular(Secante.secante(int(x1.get()), int(x2.get()), Es, crearfuncion(func.get())))).grid(row=7, column=0, columnspan=2)
   elif cmbMetodos.get() == "Horner":
     limitA = tkinter.StringVar()
     limitB = tkinter.StringVar()
@@ -139,6 +141,8 @@ def cmbSelect(event):
     tkinter.Label(frameEntries, text="Ingrese un valor", bg="#212121",fg="#ff064f").grid(row=7, column=1, columnspan=2)
     tkinter.Entry(frameEntries, exportselection=0, textvariable=xi, bg = "#673AB7", fg = "#FFFFFF").grid(row=8, column=0, columnspan=2)
     tkinter.Button(frameEntries, bg="#b606ff", fg="#FFFFFF", text="Calcular", activebackground="#673AB7", command=lambda:calcular(Newton.newton_rapshon(float(xi.get()), Es, crearfuncion(func.get())))).grid(row=9, column=0, columnspan=2)
+  elif cmbMetodos.get() == "Tartaglia":
+    tkinter.Button(frameEntries, bg="#b606ff", fg="#FFFFFF", text="Calcular", activebackground="#673AB7", command=lambda:calcular(Tartaglia.tartaglia(coefs(func.get())))).grid(row=9, column=0, columnspan=2)
 
 def calcularLimites(text):
   limits = []
