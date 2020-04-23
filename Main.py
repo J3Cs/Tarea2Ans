@@ -37,7 +37,6 @@ frameFn.grid(row=1, column=2)
 metodos=["Seleccione un metodo", "Biseccion", "Falsa Posicion", "Punto Fijo", "Newton Raphson", "Secante", "Tartaglia", "Ferrari", "Horner", "Müller", "Bairstow"]
 func = tkinter.StringVar()
 fig = Figure(figsize=(5,4), dpi=100)
-x = symbols('x')
 #--
 
 #Metodo para obtener los coeficientes de la funcion pasada como String
