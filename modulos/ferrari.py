@@ -71,12 +71,4 @@ def ferrari(coef):
 
     return U
 
-c=[2,-4,-3,16,-20]
-
-
-
-for x in ferrari(c):
-    print (x)
-            
-
 

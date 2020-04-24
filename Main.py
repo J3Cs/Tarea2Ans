@@ -38,7 +38,7 @@ frameFn.grid(row=1, column=2)
 
 #Variables
 x = symbols('x') 
-metodos=["Seleccione un metodo", "Biseccion", "Falsa Posicion", "Punto Fijo", "Newton Raphson", "Secante", "Tartaglia", "Ferrari", "Horner", "Müller", "Bairstow"]
+metodos=["Seleccione un metodo", "Biseccion", "Falsa Posicion", "Punto Fijo", "Newton Raphson", "Secante", "Tartaglia", "Horner", "Müller", "Bairstow"]
 func = tkinter.StringVar()
 fig = Figure(figsize=(5,4), dpi=100)
 cifras = tkinter.StringVar()
@@ -158,7 +158,19 @@ def cmbSelect(event):
     x2e = tkinter.Entry(frameEntries, exportselection=0, textvariable=x2, bg = "#673AB7", fg = "#FFFFFF")
     x2e.grid(row=6, column=1)
     tkinter.Button(frameEntries, bg="#b606ff", fg="#FFFFFF", text="Calcular", activebackground="#673AB7", command=lambda:calcular(bairstown.bairstown(float(x1.get()), float(x2.get()), Es, coefs(func.get()) ))).grid(row=9, column=0, columnspan=2)
-
+  elif cmbMetodos.get() == "Müller":
+    calcEs(cifras.get())
+    tkinter.Label(frameEntries, text="Ingrese x0", bg="#212121",fg="#ff064f").grid(row=5, column=0)
+    x1e = tkinter.Entry(frameEntries, exportselection=0, textvariable=x1, bg = "#673AB7", fg = "#FFFFFF")
+    x1e.grid(row=6, column=0)
+    tkinter.Label(frameEntries, text="Ingrese x1", bg="#212121",fg="#ff064f").grid(row=5, column=1)
+    x2e = tkinter.Entry(frameEntries, exportselection=0, textvariable=x2, bg = "#673AB7", fg = "#FFFFFF")
+    x2e.grid(row=6, column=1)
+    x3=tkinter.StringVar()
+    tkinter.Label(frameEntries, text="Ingrese x2", bg="#212121",fg="#ff064f").grid(row=7, column=0, columnspan=2)
+    x3e = tkinter.Entry(frameEntries, exportselection=0, textvariable=x3, bg = "#673AB7", fg = "#FFFFFF")
+    x3e.grid(row=8, column=0, columnspan=2)
+    tkinter.Button(frameEntries, bg="#b606ff", fg="#FFFFFF", text="Calcular", activebackground="#673AB7", command=lambda:calcular(muller.muller(float(x1.get()), float(x2.get()), float(x3.get()), Es, crearfuncion(func.get()) ))).grid(row=9, column=0, columnspan=2)
 def calcularLimites(text):
   limits = []
   a = float(text[0])
