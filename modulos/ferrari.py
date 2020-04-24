@@ -64,6 +64,6 @@ def ferrari(coef):
             complex(-V/2-a/4,-abs(D)/2)
         ]
 
-    return X
+    return x
 
 
