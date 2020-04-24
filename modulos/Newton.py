@@ -28,10 +28,9 @@ def newton_rapshon(xi,Es,funcion):
     if(abs((f(xi,funcion)*(dxx(xi,funcion))/(dx(xi,funcion)**2)))<1):
         Ea=1
         while Ea > Es :
-            
             x1 = xi - f(xi,funcion)/dx(xi,funcion)
+            Ea = abs((x1-xi)/x1)*100
             xi = x1
-            Ea = abs(f(xi,funcion)/(dx(xi,funcion)/xi))
         return x1
     else:
         return "No converge en ese punto"
