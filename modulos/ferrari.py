@@ -32,16 +32,11 @@ def tartagliaByFerrari(coef):
 
 def ferrari(coef):
     coef=entreElprimero(coef)
-    w=coef[4]
-    a=coef[3]
+    a=coef[1]
     b=coef[2]
-    c=coef[1]
-    d=coef[0]
-    if (w<0 and w>1):
-        a/w
-        b/w
-        c/w
-        d/w
+    c=coef[3]
+    d=coef[4]
+    
     P=(8*b-3*(pow(a,2)))/8
     Q=(8*c-4*a*b+pow(a,3))/8
     R=(256*d-64*a*c+16*pow(a,2)*b-3*pow(a,4))/256
@@ -51,7 +46,7 @@ def ferrari(coef):
     cu=((4*P*R)-pow(Q,2))/8
     t=tartaglia([1,au,bu,cu])
     U=t[0]
-    V=math.sqrt(P-2*U)
+    V=math.sqrt(2*U-P)
     W=Q/(-2*V)
     D=V**2-4*(U-W)
     if(D>0):
@@ -69,6 +64,6 @@ def ferrari(coef):
             complex(-V/2-a/4,-abs(D)/2)
         ]
 
-    return U
+    return X
 
 
