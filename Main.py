@@ -125,27 +125,39 @@ def cmbSelect(event):
     elif cmbMetodos.get() == "Secante":
       tkinter.Button(frameEntries, bg="#b606ff", fg="#FFFFFF", text="Calcular", activebackground="#673AB7", command=lambda:calcular(Secante.secante(int(x1.get()), int(x2.get()), Es, crearfuncion(func.get())))).grid(row=7, column=0, columnspan=2)
   elif cmbMetodos.get() == "Horner":
+    calcEs(cifras.get())
     limitA = tkinter.StringVar()
     limitB = tkinter.StringVar()
     limits = calcularLimites(coefs(func.get()))
+    print(coefs(func.get()))
     limitA.set(limits[0])
     limitB.set(limits[1])
     tkinter.Label(frameEntries, text="Valor inferior de intervalo", bg="#212121",fg="#ff064f").grid(row=5, column=0)
     tkinter.Entry(frameEntries, exportselection=0, textvariable=limitA, bg = "#673AB7", fg = "#FFFFFF").grid(row=6, column=0)
     tkinter.Label(frameEntries, text="Valor superior de intervalo", bg="#212121",fg="#ff064f").grid(row=5, column=1)
     tkinter.Entry(frameEntries, exportselection=0, textvariable=limitB, bg = "#673AB7", fg = "#FFFFFF").grid(row=6, column=1)
-    tkinter.Label(frameEntries, text="Ingrese un valor que este dentro del intervalo", bg="#212121",fg="#ff064f").grid(row=7, column=1, columnspan=2)
+    tkinter.Label(frameEntries, text="Ingrese un valor que este dentro del intervalo", bg="#212121",fg="#ff064f").grid(row=7, column=0, columnspan=2)
     tkinter.Entry(frameEntries, exportselection=0, textvariable=xi, bg = "#673AB7", fg = "#FFFFFF").grid(row=8, column=0, columnspan=2)
-    tkinter.Button(frameEntries, bg="#b606ff", fg="#FFFFFF", text="Calcular", activebackground="#673AB7", command=lambda:calcular(Horner.Horner(coefs(func.get()), Es, float(limitA.get()), float(limitB.get()), float(xi.get())))).grid(row=9, column=0, columnspan=2)
+    tkinter.Button(frameEntries, bg="#b606ff", fg="#FFFFFF", text="Calcular", activebackground="#673AB7", command=lambda:calcular(Horner.Horner(coefs(func.get()), Es, float(limitA.get()), float(limitB.get()), float(xi.get()) ))).grid(row=9, column=0, columnspan=2)
   elif cmbMetodos.get() == "Newton Raphson":
-    tkinter.Label(frameEntries, text="Ingrese un valor", bg="#212121",fg="#ff064f").grid(row=7, column=1, columnspan=2)
+    calcEs(cifras.get())
+    tkinter.Label(frameEntries, text="Ingrese un valor", bg="#212121",fg="#ff064f").grid(row=7, column=0, columnspan=2)
     tkinter.Entry(frameEntries, exportselection=0, textvariable=xi, bg = "#673AB7", fg = "#FFFFFF").grid(row=8, column=0, columnspan=2)
     tkinter.Button(frameEntries, bg="#b606ff", fg="#FFFFFF", text="Calcular", activebackground="#673AB7", command=lambda:calcular(Newton.newton_rapshon(float(xi.get()), Es, crearfuncion(func.get())))).grid(row=9, column=0, columnspan=2)
   elif cmbMetodos.get() == "Tartaglia":
+    calcEs(cifras.get())
     tkinter.Button(frameEntries, bg="#b606ff", fg="#FFFFFF", text="Calcular", activebackground="#673AB7", command=lambda:calcular(Tartaglia.tartaglia(coefs(func.get())))).grid(row=9, column=0, columnspan=2)
   #elif cmbMetodos.get() == "Ferrari":
     #tkinter.Button(frameEntries, bg="#b606ff", fg="#FFFFFF", text="Calcular", activebackground="#673AB7", command=lambda:calcular(ferrari.ferrari(coefs(func.get())))).grid(row=9, column=0, columnspan=2)
-
+  elif cmbMetodos.get() == "Bairstow":
+    calcEs(cifras.get())
+    tkinter.Label(frameEntries, text="Ingrese r0", bg="#212121",fg="#ff064f").grid(row=5, column=0)
+    x1e = tkinter.Entry(frameEntries, exportselection=0, textvariable=x1, bg = "#673AB7", fg = "#FFFFFF")
+    x1e.grid(row=6, column=0)
+    tkinter.Label(frameEntries, text="Ingrese s0", bg="#212121",fg="#ff064f").grid(row=5, column=1)
+    x2e = tkinter.Entry(frameEntries, exportselection=0, textvariable=x2, bg = "#673AB7", fg = "#FFFFFF")
+    x2e.grid(row=6, column=1)
+    tkinter.Button(frameEntries, bg="#b606ff", fg="#FFFFFF", text="Calcular", activebackground="#673AB7", command=lambda:calcular(bairstown.bairstown(float(x1.get()), float(x2.get()), Es, coefs(func.get()) ))).grid(row=9, column=0, columnspan=2)
 
 def calcularLimites(text):
   limits = []
@@ -153,6 +165,7 @@ def calcularLimites(text):
   b = float(text[len(text)-1])
   limits.append(Abs(a)/(Abs(a)+b))
   limits.append((Abs(b)+b)/Abs(b))
+  print(limits)
   return limits
 
 def calcular(fn):

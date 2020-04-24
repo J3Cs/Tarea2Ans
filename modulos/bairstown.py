@@ -90,16 +90,3 @@ def bairstown(r0,s0,Es,coef):
                 x.append(complex(-coef[1]/2,-(-1*(coef[1]**2 - 4*coef[0]*coef[2])/2)))
 
     return x
-
-
-
-
-c=[1,-7,13,23,-78]
-
-#print bairstown(-1,-1,0.05,c)
-x=bairstown(1.5,1.5,0.05,c)
-
-for letra in x:
-    print(letra)
-
-

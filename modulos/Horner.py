@@ -9,10 +9,10 @@ def Horner(func, Es, limitA, limitB, xi):
     R = 0.0
     S = 0.0
     coeficientes = func
-    print(func)
     limitA = limitA
     limitB = limitB
-    for t in range(len(coeficientes)):
+    longitud = len(coeficientes)
+    for t in range(longitud):
       if t == 0:
         faPos = coeficientes[t]
         faNeg = coeficientes[t]
@@ -24,20 +24,18 @@ def Horner(func, Es, limitA, limitB, xi):
         fbPos = fbPos + coeficientes[t]*limitB**t
         fbNeg = fbNeg + coeficientes[t]*-limitB**t
 
-    intocable = coeficientes[len(coeficientes)-1]
-
+    intocable = coeficientes[longitud-1]
+    pos = 0
     if faPos * fbPos < 0:
-      for i in range(len(coeficientes), 1, -1):
-        if i == len(coeficientes):
+      for i in range(longitud-2, -1, -1):
+        if i == longitud-2:
           m = intocable*xi
-          arr.append(m+coeficientes[i-2])
-          pos = 0
+          arr.append(m+coeficientes[i])
         else:
           pos = pos + 1
           m = arr[pos-1]*xi
-          arr.append(m+coeficientes[i-2]) 
+          arr.append(m+coeficientes[i])
           R = arr[pos]
-       
       for j in range((len(arr)-1)):
         if j == 0:
             m = intocable*xi
@@ -48,23 +46,17 @@ def Horner(func, Es, limitA, limitB, xi):
             S = arr1[j]
       xi1 = xi - (R/S)
       Ea = math.fabs((xi1-xi)/xi1)*100
-      arr = []
-      arr1 = []
-      R = 0.0
-      S = 0.0
+      pos = len(arr)-1
       while Ea > Es:
         xi = xi1
-        for i in range(len(coeficientes), 1, -1):
-          if i == len(coeficientes):
+        for i in range(longitud-2, -1, -1):
+          if i == longitud-2:
             m = intocable*xi
-            arr.append(m+coeficientes[i-2])
-            pos = 0
+            arr.append(m+coeficientes[i])  
           else:
-            pos = pos + 1
             m = arr[pos-1]*xi
-            arr.append(m+coeficientes[i-2]) 
+            arr.append(m+coeficientes[i])
             R = arr[pos]
-        
         for j in range((len(arr)-1)):
           if j == 0:
             m = intocable*xi
@@ -75,10 +67,10 @@ def Horner(func, Es, limitA, limitB, xi):
             S = arr1[j]
         xi1 = xi - (R/S)
         Ea = math.fabs((xi1-xi)/xi1)*100
-
+        
     elif faNeg * fbNeg < 0:
-      for i in range(len(coeficientes), 1, -1):
-        if i == len(coeficientes):
+      for i in range(longitud, -1, -1):
+        if i == longitud:
           m = intocable*xi
           arr.append(m+coeficientes[i-2])
           pos = 0
@@ -104,9 +96,8 @@ def Horner(func, Es, limitA, limitB, xi):
       S = 0.0
       while Ea > Es:
         xi = xi1
-        print("xi ",xi)
-        for i in range(len(coeficientes), 1, -1):
-          if i == len(coeficientes):
+        for i in range(longitud, -1, -1):
+          if i == longitud:
             m = intocable*xi
             arr.append(m+coeficientes[i-2])
             pos = 0
