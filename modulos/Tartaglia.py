@@ -3,7 +3,6 @@ import numpy as np
 #tartaglia 
 #Recibe como parametro un array 
 def tartaglia(coeficientes):
-    print(coeficientes)    
     w=coeficientes[3]
     a=coeficientes[2]
     b=coeficientes[1]
@@ -12,15 +11,14 @@ def tartaglia(coeficientes):
         a=a/w
         b=b/w
         c=c/w
-    H=(3*b-a**2)/9
-    
+    H=(3*b-a*a)/9
     G=((-9)*a*b+27*c+2*(a**3))/54
     D=(G**2)+H**3
     if(D<0):
         ang=math.acos(-G/(math.sqrt((-H**3))))
-        X= 2*(-H**(0.5))*math.cos(ang/3)-(a/3)
-        Y= 2*(-H**(0.5))*math.cos(((ang+2*math.pi))/3)-(a/3)
-        Z= 2*(-H**(0.5))*math.cos(((ang-2*math.pi))/3)-(a/3)
+        X= 2*(math.sqrt(-H))*math.cos(ang/3)-(a/3)
+        Y= 2*(math.sqrt(-H))*math.cos(((ang+2*math.pi))/3)-(a/3)
+        Z= 2*(math.sqrt(-H))*math.cos(((ang-2*math.pi))/3)-(a/3)
     elif D==0:
             p=3*H
             q=2*G

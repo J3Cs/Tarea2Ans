@@ -14,15 +14,18 @@ def biseccion(x1,x2,Es,funcion):
      Es -- error especifico
      funcion -- la cadena de la funcion
     """
-    
-    Ea = 1
-    while(abs(Ea) > Es):
-        xr = (x1 + x2) / 2
-        Ea = (xr-x1)/xr
-        if(funcion.subs(x, x1)) * (funcion.subs(x, xr)) < 0:
-            x2 = xr
-        else:
-            print(funcion)
-            x1= xr
-    return xr
+    if (funcion.subs(x, x1)*funcion.subs(x, x2)<0):
+        xr=0
+        Ea = 1
+        while(abs(Ea) > Es):
+            anterior=xr
+            xr = (x1 + x2) / 2
+            Ea = (xr-anterior)/xr
+            if(funcion.subs(x, x1)) * (funcion.subs(x, xr)) < 0:
+                x2 = xr
+            else:
+                x1= xr
+        return xr
+    else:
+        return "no hay raiz"
 

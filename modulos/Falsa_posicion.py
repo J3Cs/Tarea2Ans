@@ -14,22 +14,15 @@ def falsa_posicion(x1,x2,Es,funcion):
     x = symbols('x')
     if (funcion.subs(x, x1)*funcion.subs(x, x2)<0):
         xr=0
-        anterior=0
         Ea=1
         while Ea>Es:
+            anterior=xr
             xr = x2 - ((x1-x2) * funcion.subs(x, x2))/( funcion.subs(x, x1) - funcion.subs(x, x2) )
-
-            if funcion.subs(x, x1) * funcion.subs(x, xr) < 0:
-                anterior = x2
+            if funcion.subs(x, x1) * funcion.subs(x, xr) < 0:  
                 x2 = xr
             else:
                 x1 = xr
-
             Ea = abs((xr - anterior) / xr) * 100
         return xr
     else:
-        return "no sirve"
-
-x=symbols('x')
-f=math.e**x-math.pi*x
-print (falsa_posicion(1,1,0.05,f))
+        return "no raiz"
