@@ -18,7 +18,7 @@ def tartaglia(coeficientes):
     G=((-9)*a*b+27*c+2*(a**3))/54
     D=G*G+H**3
     if(D<0):
-        ang=math.acos(-G/(math.sqrt((H**3))))
+        ang=math.acos(-G/(math.sqrt((-H**3))))
         X= 2*(H**(0.5))*math.cos(ang/3)-(a/3)
         Y= 2*(H**(0.5))*math.cos(((ang+2*math.pi))/3)-(a/3)
         Z= 2*(H**(0.5))*math.cos(((ang-2*math.pi))/3)-(a/3)
