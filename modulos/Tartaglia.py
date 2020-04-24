@@ -32,14 +32,9 @@ def tartaglia(coeficientes):
             p=((-G+math.sqrt(D)))**(1/3)
         if (-G-math.sqrt(D))<0:
             q=-1*(abs(-G-math.sqrt(D)))**(1/3)
-            p=((-G+math.sqrt(D)))**(1/3)
-        if (-G-math.sqrt(D))<0:
-            q=-1*(abs(-G-math.sqrt(D)))**(1/3)
         else:
             q=((-G-math.sqrt(D)))**(1/3)
         X=(p+q)-(a/3)
         Y=complex(-(p+q)/2-(a/3),(p-q)*(math.sqrt(3)/2))
         Z=complex(-(p+q)/2-(a/3),-(p-q)*(math.sqrt(3)/2))
     return [X,Y,Z]
-
-print(tartaglia([-15,7,7,1]))
