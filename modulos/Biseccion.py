@@ -1,5 +1,7 @@
 import math
+import sympy as sym
 from sympy import *
+import numpy as np
 #Funcion del Ejercicio
 #def f(x,funcion):
  #   return eval(funcion.replace("x",str(x)))
@@ -20,7 +22,7 @@ def biseccion(x1,x2,Es,funcion):
         while(abs(Ea) > Es):
             anterior=xr
             xr = (x1 + x2) / 2
-            Ea = (xr-anterior)/xr
+            Ea = ((xr-anterior)/xr)*100
             if(funcion.subs(x, x1)) * (funcion.subs(x, xr)) < 0:
                 x2 = xr
             else:
@@ -28,4 +30,5 @@ def biseccion(x1,x2,Es,funcion):
         return xr
     else:
         return "no hay raiz"
+
 

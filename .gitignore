@@ -1,2 +1,10 @@
 .vscode
 ./modulos/__pycache__/*
+modulos/__pycache__/bairstown.cpython-37.pyc
+modulos/__pycache__/Biseccion.cpython-37.pyc
+modulos/__pycache__/Falsa_posicion.cpython-37.pyc
+modulos/__pycache__/Horner.cpython-37.pyc
+modulos/__pycache__/muller.cpython-37.pyc
+modulos/__pycache__/Newton.cpython-37.pyc
+modulos/__pycache__/Secante.cpython-37.pyc
+modulos/__pycache__/Tartaglia.cpython-37.pyc
