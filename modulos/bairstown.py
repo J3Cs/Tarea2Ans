@@ -28,7 +28,7 @@ def bairstown(r0,s0,Es,coef):
      s0 -- Es el valor inicial de S0
      coef -- es la lista de los coeficientes de la ecuacion
     """
-
+    
     while len(coef)>3:
         Ear=0
         Eas=0

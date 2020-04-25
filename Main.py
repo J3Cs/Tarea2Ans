@@ -9,7 +9,7 @@ import numpy as np
 import sympy as sym
 from sympy import *
 import re
-from modulos import bairstown, Biseccion, Falsa_posicion, Horner, muller, Newton, Secante, Tartaglia
+from modulos import bairstown, Biseccion, Falsa_posicion, muller, Newton, Secante, Tartaglia
 
 # create main window
 master = tkinter.Tk()
@@ -63,7 +63,7 @@ def limpiar():
   raiz.set("")
   funci=0*x
   xi.set("")
-
+  cmbMetodos.current(0)
 #Metodo para obtener los coeficientes de la funciones algebraicas pasada como String
 def coefs(entrada):
   regexp = r"(-?\d*)(x?)(?:(?:\^|\*\*)(\d))?"
@@ -175,7 +175,7 @@ def cmbSelect(event):
   if func.get() == "":
     messagebox.showerror(message="Por favor llene los campos correspondientes para realizar el calculo")
     cmbMetodos.current(0)
-  elif (cmbMetodos.get() == "Biseccion" or cmbMetodos.get() == "Falsa Posicion" or cmbMetodos.get()=="Secante") and (cifras.get()!=""):
+  elif (cmbMetodos.get() == "Biseccion" or cmbMetodos.get() == "Falsa Posicion" or cmbMetodos.get()=="Secante") or cmbMetodos.get()=="Bairstow" and (cifras.get()!=""):
     calcEs(cifras.get())
     tkinter.Label(frameEntries, text="Ingrese valor inicial", bg="#212121",fg="#ff064f").grid(row=6, column=0)
     x1e = tkinter.Entry(frameEntries, exportselection=0, textvariable=x1, bg = "#673AB7", fg = "#FFFFFF")
@@ -184,32 +184,34 @@ def cmbSelect(event):
     x2e = tkinter.Entry(frameEntries, exportselection=0, textvariable=x2, bg = "#673AB7", fg = "#FFFFFF")
     x2e.grid(row=7, column=1)
     if cmbMetodos.get() == "Biseccion":
-      tkinter.Button(frameEntries, bg="#b606ff", fg="#FFFFFF", text="Calcular", activebackground="#673AB7", command=lambda:calcular(Biseccion.biseccion(int(x1.get()), int(x2.get()), Es, crearfuncion(func.get())))).grid(row=8, column=0, columnspan=2)
+      tkinter.Button(frameEntries, bg="#b606ff", fg="#FFFFFF", text="Calcular", activebackground="#673AB7", command=lambda:calcular(Biseccion.biseccion(int(x1.get()), int(x2.get()), Es, crearfuncion(func.get())))).grid(row=8, column=0)
     elif cmbMetodos.get() == "Falsa Posicion":
-      tkinter.Button(frameEntries, bg="#b606ff", fg="#FFFFFF", text="Calcular", activebackground="#673AB7", command=lambda:calcular(Falsa_posicion.falsa_posicion(int(x1.get()), int(x2.get()), Es, crearfuncion(func.get())))).grid(row=8, column=0, columnspan=2)
+      tkinter.Button(frameEntries, bg="#b606ff", fg="#FFFFFF", text="Calcular", activebackground="#673AB7", command=lambda:calcular(Falsa_posicion.falsa_posicion(int(x1.get()), int(x2.get()), Es, crearfuncion(func.get())))).grid(row=8, column=0)
     elif cmbMetodos.get() == "Secante":
-      tkinter.Button(frameEntries, bg="#b606ff", fg="#FFFFFF", text="Calcular", activebackground="#673AB7", command=lambda:calcular(Secante.secante(int(x1.get()), int(x2.get()), Es, crearfuncion(func.get())))).grid(row=8, column=0, columnspan=2)
+      tkinter.Button(frameEntries, bg="#b606ff", fg="#FFFFFF", text="Calcular", activebackground="#673AB7", command=lambda:calcular(Secante.secante(int(x1.get()), int(x2.get()), Es, crearfuncion(func.get())))).grid(row=8, column=0)
+    elif cmbMetodos.get() == "Bairstow":
+      tkinter.Button(frameEntries, bg="#b606ff", fg="#FFFFFF", text="Calcular", activebackground="#673AB7", command=lambda:calcular(bairstown.bairstown(int(x1.get()), int(x2.get()), Es, coefs(func.get())))).grid(row=8, column=0) 
   elif cmbMetodos.get() == "Horner" and (cifras.get()!=""):
     limitA = tkinter.StringVar()
     limitB = tkinter.StringVar()
     limits = calcularLimites(coefs(func.get()))
     limitA.set(limits[0])
     limitB.set(limits[1])
-    tkinter.Label(frameEntries, text="Valor inferior de intervalo", bg="#212121",fg="#ff064f").grid(row=6, column=0)
-    tkinter.Entry(frameEntries, exportselection=0, textvariable=limitA, bg = "#673AB7", fg = "#FFFFFF").grid(row=5, column=0)
-    tkinter.Label(frameEntries, text="Valor superior de intervalo", bg="#212121",fg="#ff064f").grid(row=6, column=1)
-    tkinter.Entry(frameEntries, exportselection=0, textvariable=limitB, bg = "#673AB7", fg = "#FFFFFF").grid(row=7, column=1)
-    tkinter.Label(frameEntries, text="Ingrese un valor que este dentro del intervalo", bg="#212121",fg="#ff064f").grid(row=8, column=1, columnspan=2)
-    tkinter.Entry(frameEntries, exportselection=0, textvariable=xi, bg = "#673AB7", fg = "#FFFFFF").grid(row=9, column=0, columnspan=2)
-    tkinter.Button(frameEntries, bg="#b606ff", fg="#FFFFFF", text="Calcular", activebackground="#673AB7", command=lambda:calcular(Horner.Horner(coefs(func.get()), Es, float(limitA.get()), float(limitB.get()), float(xi.get())))).grid(row=10, column=0, columnspan=2)
+    tkinter.Label(frameEntries, text="x1", bg="#212121",fg="#ff064f").grid(row=7, column=0)
+    tkinter.Entry(frameEntries, exportselection=0, textvariable=limitA, bg = "#673AB7", fg = "#FFFFFF", width=10 ).grid(row=8, column=0)
+    tkinter.Label(frameEntries, text="x2", bg="#212121",fg="#ff064f").grid(row=7, column=1)
+    tkinter.Entry(frameEntries, exportselection=0, textvariable=limitB, bg = "#673AB7", fg = "#FFFFFF",width=10 ).grid(row=8, column=1)
+    tkinter.Label(frameEntries, text="Valor entre x1 y x2", bg="#212121",fg="#ff064f").grid(row=9, column=0, columnspan=2)
+    tkinter.Entry(frameEntries, exportselection=0, textvariable=xi, bg = "#673AB7", fg = "#FFFFFF",width=10 ).grid(row=10, column=0, columnspan=2)
+    tkinter.Button(frameEntries, bg="#b606ff", fg="#FFFFFF", text="Calcular", activebackground="#673AB7", command=lambda:calcular(Horner.Horner(coefs(func.get()), Es, float(limitA.get()), float(limitB.get()), float(xi.get())))).grid(row=10, column=0)
   elif cmbMetodos.get() == "Newton Raphson" and (cifras.get()!=""):
     tkinter.Label(frameEntries, text="Ingrese un valor", bg="#212121",fg="#ff064f").grid(row=8, column=1, columnspan=2)
     tkinter.Entry(frameEntries, exportselection=0, textvariable=xi, bg = "#673AB7", fg = "#FFFFFF").grid(row=9, column=0, columnspan=2)
-    tkinter.Button(frameEntries, bg="#b606ff", fg="#FFFFFF", text="Calcular", activebackground="#673AB7", command=lambda:calcular(Newton.newton_rapshon(float(xi.get()), Es, crearfuncion(func.get())))).grid(row=10, column=0, columnspan=2)
+    tkinter.Button(frameEntries, bg="#b606ff", fg="#FFFFFF", text="Calcular", activebackground="#673AB7", command=lambda:calcular(Newton.newton_rapshon(float(xi.get()), Es, crearfuncion(func.get())))).grid(row=10, column=0)
   elif cmbMetodos.get() == "Tartaglia":
-    tkinter.Button(frameEntries, bg="#b606ff", fg="#FFFFFF", text="Calcular", activebackground="#673AB7", command=lambda:calcular(Tartaglia.tartaglia(coefs(func.get())))).grid(row=10, column=0, columnspan=2)
+    tkinter.Button(frameEntries, bg="#b606ff", fg="#FFFFFF", text="Calcular", activebackground="#673AB7", command=lambda:calcular(Tartaglia.tartaglia(coefs(func.get())))).grid(row=10, column=0)
   elif cmbMetodos.get() == "Ferrari":
-    tkinter.Button(frameEntries, bg="#b606ff", fg="#FFFFFF", text="Calcular", activebackground="#673AB7", command=lambda:calcular(ferrari.ferrari(coefs(func.get())))).grid(row=9, column=0, columnspan=2)
+    tkinter.Button(frameEntries, bg="#b606ff", fg="#FFFFFF", text="Calcular", activebackground="#673AB7", command=lambda:calcular(ferrari.ferrari(coefs(func.get())))).grid(row=9, column=0)
   else:
     
     messagebox.showerror(message="Por favor llene los campos correspondientes para realizar el calculo")
@@ -248,8 +250,11 @@ cmbMetodos.grid(row=5, column=1)
 cmbMetodos.current(0)
 cmbMetodos.bind("<<ComboboxSelected>>", cmbSelect)
 
-tkinter.Label(frameEntries, text="Soluciones", bg="#212121",fg="#ff064f").grid(row=10, column=0, columnspan=2)
-tkinter.Entry(frameEntries, exportselection=0, disabledbackground = "#2d000d", textvariable=raiz, fg = "#FFFFFF", state="disabled", width=60).grid(row=11, column=0, columnspan=2)
+tkinter.Label(frameEntries, text="Soluciones:", bg="#212121",fg="#ff064f").grid(row=10, column=0, columnspan=2)
+tkinter.Label(frameEntries, textvariable=raiz, bg="#212121",fg="#FFF").grid(row=11, column=0, columnspan=2)
+tkinter.Label(frameEntries, text="CC16046-Cardona Castro, Julio César", bg="#212121",fg="#FFF").grid(row=13, , columnspan=2)
+tkinter.Label(frameEntries, text="MM17017 Meda Margueiz, Christian Eduardo", bg="#212121",fg="#FFF").grid(row=14,, columnspan=2)
+#tkinter.Entry(frameEntries, exportselection=0, disabledbackground = "#2d000d", textvariable=raiz, fg = "#000", width=60,height=30).grid(row=11, column=0, columnspan=2)
 
 
 #Area de grafico
@@ -285,9 +290,7 @@ multi = tkinter.Button(frame, bg="#b606ff", fg="#FFFFFF", text="*", activebackgr
 sen = tkinter.Button(frameFn, bg="#b606ff", fg="#FFFFFF", text="sin(x)", activebackground="#673AB7", width=6, command=lambda:escribir(sen))
 cos = tkinter.Button(frameFn, bg="#b606ff", fg="#FFFFFF", text="cos(x)", activebackground="#673AB7", width=6, command=lambda:escribir(cos))
 tan = tkinter.Button(frameFn, bg="#b606ff", fg="#FFFFFF", text="tan(x)", activebackground="#673AB7", width=6, command=lambda:escribir(tan))
-e = tkinter.Button(frameFn, bg="#b606ff", fg="#FFFFFF", text="asin(x)", activebackground="#673AB7", width=6, command=lambda:escribir(e))
-ln = tkinter.Button(frameFn, bg="#b606ff", fg="#FFFFFF", text="acos(x)", activebackground="#673AB7", width=6, command=lambda:escribir(ln))
-log = tkinter.Button(frameFn, bg="#b606ff", fg="#FFFFFF", text="atan(x)", activebackground="#673AB7", width=6, command=lambda:escribir(log))
+
 #--
 #Posicionamiento de los botones numericos
 uno.grid(row=0, column=0)
@@ -311,10 +314,7 @@ division.grid(row=3,column=3)
 sen.grid(row=0, column=0)
 cos.grid(row=0, column=1)
 tan.grid(row=0, column=2)
-e.grid(row=1, column=0)
-ln.grid(row=1, column=1)
-log.grid(row=1, column=2)
-#--
+
 
 #--
 master.mainloop()
